@@ -11,15 +11,21 @@ Creates a weak map for each itemscope attribute contained within.  Maps to model
 be-hydrated can specify a schema inline or by reference.
 
 ```html
-<div be-dehydrated='{
-    "properties":{
-        "myProp":{
-            "type": "integer"
-        }
-    }
-}'>
-    <div itemscope>
+<div be-dehydrated>
+    <div itemscope itemtype=blah>
         <div itemprop=myProp>1,300</div>
     </div>
 </div>
+
+...
+
+<be-dehydrated default-proxy-props='{
+    "map":{
+        "blah":{
+            "myProp":{
+                "type": "integer"
+            }
+        }
+    }
+}'>
 ```
