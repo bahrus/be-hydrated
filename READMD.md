@@ -12,7 +12,7 @@ be-hydrated can specify a schema inline or by reference.
 
 ```html
 <div be-dehydrated='{
-    "propertis":{
+    "properties":{
         "myProp":{
             "type": "integer"
         }
