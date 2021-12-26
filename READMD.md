@@ -1,31 +1,60 @@
-```html
-<div be-dehydrated>
-    <div itemscope>
-        <div itemprop=myProp>My value</div>
-    </div>
-</div>
-```
 
-Creates a weak map for each itemscope attribute contained within.  Maps to model based on itemprop values.
-
-be-hydrated can specify a schema inline or by reference.
 
 ```html
-<div be-dehydrated>
-    <div itemscope itemtype=blah>
-        <div itemprop=myProp>1,300</div>
-    </div>
-</div>
+<my-custom-element defer-hydration be-hydrated='
+{
+    "deepMerge": true,
+    "props":{    
+        "myStringProp": "supercalifragilisticexpialidocious",
+        "myNumProp": 6.022140857E23,
+        "myBool": false,
+        "myObjectProp": {
+            "mySubObj":{}
+        },
+    },
+    "attribs":{
 
-...
-
-<be-dehydrated default-proxy-props='{
-    "map":{
-        "blah":{
-            "myProp":{
-                "type": "integer"
-            }
-        }
+    },
+    "scriptRef": "my-script",
+    "complexProps":{
+        "myFunctionCallback": "callback"
     }
+
 }'>
+</my-custom-element>
+<script nomodule id=my-script be-exportable>
+    export function callback(e){
+        console.log(e);
+    }
+</script>
 ```
+
+In contrast to be-set, be-kibitzing
+
+<table>
+   <caption>Differences between setting attributes</caption>
+   <thead>
+    <th>Feature</th>
+    <th>be-hydrated</th>
+    <th>be-set</th>
+    <th>be-kibitzing</th>
+   </thead>
+   <tr>
+    <td>Attributes that block setting the props</td>
+    <td>defer-hydration, be-set</td>
+    <td>defer-hydration</td>
+    <td>?</td>
+   </tr>
+   <tr>
+    <td>Elements it can adorn</td>
+    <td>Any</td>
+    <td>template</td>
+    <td>template</td>
+   </tr>
+   <tr>
+    <td>Can Pierce Shadow DOM</td>
+    <td>No</td>
+    <td>No</td>
+    <td>Yes</td>
+   </tr>
+</table>
