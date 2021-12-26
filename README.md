@@ -57,4 +57,16 @@ In contrast to be-set, be-kibitzing
     <td>No</td>
     <td>Yes</td>
    </tr>
+   <tr>
+        <td>Selector support</td>
+        <td>None</td>
+        <td>Single</td>
+        <td>Sequence</td>
+    </tr>
+    <tr>
+        <td>Attribute(s) removed after setting</td>
+        <td>None</td>
+        <td>None</td>
+        <td>defer-hydration</td>
+    </tr>
 </table>
