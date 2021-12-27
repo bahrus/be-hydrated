@@ -78,6 +78,9 @@ define({
             upgrade,
             ifWantsToBe,
             virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttribs', 'deepMerge', 'readyToMerge', 'noBlockingAttrib', 'scriptRefReady', 'script'],
+            proxyPropDefaults: {
+                deferAttribs: ['defer-hydration', 'be-set']
+            }
         },
         actions: {
             onDeferAttribs: 'deferAttribs',

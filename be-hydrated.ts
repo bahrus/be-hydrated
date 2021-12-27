@@ -37,7 +37,7 @@ export class BeHydratedController implements BeHydratedActions{
         return deferAttribs.some(attrib => this.proxy.hasAttribute(attrib));
     }
 
-    async onReadyToMerge({props, deepMerge, complexProps, script}: this): Promise<void>{
+    async onReadyToMerge({props, deepMerge, complexProps, script, preSetMethods, postSetMethods}: this): Promise<void>{
         const src = {...props};
         
         if(complexProps !== undefined){
@@ -51,11 +51,25 @@ export class BeHydratedController implements BeHydratedActions{
                 src[key] = exp;
             }
         }
+        if(preSetMethods !== undefined){
+            for(const method of preSetMethods){
+                if(typeof((<any>this.#target)[method]) === 'function'){
+                    await (<any>this.#target)[method]();
+                }
+            }
+        }
         if(deepMerge){
             const {mergeDeep} = await import('trans-render/lib/mergeDeep.js');
             mergeDeep(this.#target, src);
         }else{
             Object.assign(this.#target, src);
+        }
+        if(postSetMethods !== undefined){
+            for(const method of postSetMethods){
+                if(typeof((<any>this.#target)[method]) === 'function'){
+                    await (<any>this.#target)[method]();
+                }
+            }
         }
     }
 
@@ -87,7 +101,12 @@ define<BeHydratedProps & BeDecoratedProps<BeHydratedProps, BeHydratedActions>, B
         propDefaults:{
             upgrade,
             ifWantsToBe,
-            virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttribs', 'deepMerge', 'readyToMerge', 'noBlockingAttrib', 'scriptRefReady', 'script'],
+            virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttribs', 'deepMerge', 'readyToMerge', 'noBlockingAttrib', 'scriptRefReady', 'script', 'preSetMethods', 'postSetMethods'],
+            proxyPropDefaults:{
+                deferAttribs: ['defer-hydration', 'be-set'],
+                preSetMethods: ['attachQR'],
+                postSetMethods: ['detachQR'],
+            }
         },
         actions:{
             onDeferAttribs: 'deferAttribs',

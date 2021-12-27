@@ -10,6 +10,8 @@ export interface BeHydratedVirtualProps {
     noBlockingAttrib: boolean,
     scriptRefReady: boolean,
     script: HTMLScriptElement,
+    preSetMethods: string[],
+    postSetMethods: string[],
 }
 
 export interface BeHydratedProps extends BeHydratedVirtualProps{
