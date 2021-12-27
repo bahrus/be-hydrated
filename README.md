@@ -12,9 +12,6 @@
             "mySubObj":{}
         },
     },
-    "attribs":{
-
-    },
     "scriptRef": "my-script",
     "complexProps":{
         "myFunctionCallback": "callback"
