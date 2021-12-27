@@ -1,6 +1,6 @@
 {
   "name": "be-hydrated",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [
     "web-components",
     "web-component",
@@ -16,16 +16,17 @@
     ".": "./be-hydrated.js",
     "./be-hydrated.js": "./be-hydrated.js"
   },
-  "files":["*.*"],
+  "files": [
+    "*.*"
+  ],
   "types": "types.d.ts",
-
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "node node_modules/xtal-test/serve.js",
     "package-check": "package-check",
     "doc": "custom-elements-manifest analyze"
   },
-  "dependencies":{
+  "dependencies": {
     "be-decorated": "0.0.56",
     "be-hive": "0.0.15"
   },
