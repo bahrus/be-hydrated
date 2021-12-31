@@ -12,7 +12,7 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
 <my-custom-element defer-hydration be-hydrated='
 {
     "deepMerge": true,
-    "deferAttribs": ["defer-hydration"],
+    "deferAttrib": "defer-hydration",
     "props":{    
         "myStringProp": "supercalifragilisticexpialidocious",
         "myNumProp": 6.022140857E23,
@@ -39,6 +39,10 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
     }
 </script>
 ```
+
+Some custom element libraries may provide the ability to prevent reacting while multiple set operations take place, only reacting after that is all done.
+
+We can take advantage of that by either using settings "preSetMethod" and "postSetMethod" or by using the "deferAttrib" setting.  Note that if be-hydrated already finds attribute "defer-hydration" set, it will leave the attribute alone after making the changes.
 
 ## Example 2:  Applied to the previous element, including adding light children [TODO]
 
