@@ -43,11 +43,11 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
 ## Example 2:  Applied to the previous element, including adding light children [TODO]
 
 ```html
-<html-include href="my-ssr-web-component">
+<html-include href="https://esm.run/my-ssr-web-component/my-ssr-web-component.html">
 </html-include>
 <template be-hydrated='{
     "upSearch": "*",
-    "select": "my-ssr-web-component",
+    "selectWithin": "my-ssr-web-component",
     "etc": "etc"
 }'>
 <my-light-children></my-light-children>
