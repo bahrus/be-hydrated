@@ -103,7 +103,7 @@ define<BeHydratedProps & BeDecoratedProps<BeHydratedProps, BeHydratedActions>, B
             ifWantsToBe,
             virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttribs', 'deepMerge', 'readyToMerge', 'noBlockingAttrib', 'scriptRefReady', 'script', 'preSetMethods', 'postSetMethods'],
             proxyPropDefaults:{
-                deferAttribs: ['defer-hydration', 'be-set'],
+                deferAttribs: [],
                 preSetMethods: ['attachQR'],
                 postSetMethods: ['detachQR'],
             }
