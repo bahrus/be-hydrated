@@ -42,7 +42,9 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
 
 Some custom element libraries may provide the ability to prevent reacting while multiple set operations take place, only reacting after that is all done.
 
-We can take advantage of that by either using settings "preSetMethod" and "postSetMethod" or by using the "deferAttrib" setting.  Note that if be-hydrated already finds attribute "defer-hydration" set, it will leave the attribute alone after making the changes.
+We can take advantage of that by either using settings "preSetMethod" and "postSetMethod" or by using the ["deferAttrib"](https://github.com/webcomponents-cg/community-protocols/issues/16) setting.  Note that if be-hydrated already finds attribute "defer-hydration" set,  it will leave the attribute alone after making the changes, unless setting "removeDeferAttrib" is set to true.
+
+deferAttrib is set to "defer-hydration" by default.  To not do anything related to that attribute, set it to false.
 
 ## Example 2:  Applied to the previous element, including adding light children [TODO]
 
@@ -58,7 +60,7 @@ We can take advantage of that by either using settings "preSetMethod" and "postS
 <template>
 ```
 
-This is useful when loading a static html file that provides a self-registering custom element, but the properties and light children then need to be passed in via the client.
+This is useful when loading a static html file that provides a SSR-d custom element, but the properties and light children then need to be passed in via the client.
 
 ## Fellow behaviors
 
