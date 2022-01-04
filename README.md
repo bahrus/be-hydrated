@@ -94,8 +94,8 @@ The following table should help clarify which one to use when:
    </tr>
    <tr>
     <td>Effect on defer-hydration attribute</td>
-    <td>Decrements by 1 / sets to '' if 1 / removes if ''</td>
-    <td>Decrements by 1 / sets to '' if 1 / removes if ''</td>
+    <td>Decrements by 1 if 3 or more / sets to '' if 2 / removes if ''</td>
+    <td>Decrements by 1 if 3 or more / sets to '' if 2 / removes if ''</td>
     <td>None</td>
 </table>
 
