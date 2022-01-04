@@ -9,9 +9,8 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
 ## Example 1:  Applied directly to an element: [TODO]
 
 ```html
-<my-custom-element defer-hydration be-hydrated='
+<my-custom-element defer-hydration=7 be-hydrated='
 {
-    "deepMerge": true,
     "deferAttrib": "defer-hydration",
     "props":{    
         "myStringProp": "supercalifragilisticexpialidocious",
@@ -40,16 +39,16 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
 </script>
 ```
 
-Some custom element libraries may provide the ability to prevent reacting while multiple set operations take place, only reacting after that is all done.
+Some custom element libraries may provide the ability to prevent reacting while multiple set operations take place, only reacting after that is all done, based on the defer-hydration attribute.
 
-We can take advantage of that by either using settings "preSetMethod" and "postSetMethod" or by using the ["deferAttrib"](https://github.com/webcomponents-cg/community-protocols/issues/16) setting.  Note that if be-hydrated already finds attribute "defer-hydration" set,  it will leave the attribute alone after making the changes, unless setting "removeDeferAttrib" is set to true.
+When be-hydrated has finished, it reduces the number value of defer-hydration by 1.  If defer-hydration is value 2, the next value will just be defer-hydration = ''.  If the value of defer-hydration is '' then it will be removed.
 
 deferAttrib is set to "defer-hydration" by default.  To not do anything related to that attribute, set it to false.
 
 ## Example 2:  Applied to the previous element, including adding light children [TODO]
 
 ```html
-<html-include href="https://esm.run/my-ssr-web-component/my-ssr-web-component.html">
+<html-include href="https://cdn.jsdelvr.net/my-ssr-web-component/my-ssr-web-component.html">
 </html-include>
 <template be-hydrated='{
     "upSearch": "*",
@@ -64,7 +63,7 @@ This is useful when loading a static html file that provides a SSR-d custom elem
 
 ## Fellow behaviors
 
-be-hydrated serves a similar purpose to be-set and be-kibitzing, so it is easy to be confused about which one to use when.  
+be-hydrated serves a similar purpose to be-set[TO-DO] and be-kibitzing[TO-DO], so it is easy to be confused about which one to use when.  
 
 The following table should help clarify which one to use when:
 
@@ -93,6 +92,11 @@ The following table should help clarify which one to use when:
     <td>No</td>
     <td>Yes</td>
    </tr>
+   <tr>
+    <td>Effect on defer-hydration attribute</td>
+    <td>Decrements by 1 / sets to '' if 1 / removes if ''</td>
+    <td>Decrements by 1 / sets to '' if 1 / removes if ''</td>
+    <td>None</td>
 </table>
 
 

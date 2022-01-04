@@ -1,7 +1,7 @@
 import {BeDecoratedProps} from 'be-decorated/types';
 
 export interface BeHydratedVirtualProps {
-    deepMerge: boolean,
+    deepMergeProps: any,
     deferAttribs: string[],
     props: any,
     scriptRef: string,
