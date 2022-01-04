@@ -63,7 +63,9 @@ This is useful when loading a static html file that provides a SSR-d custom elem
 
 ## Fellow behaviors
 
-be-hydrated serves a similar purpose to be-set[TO-DO] and be-kibitzing[TO-DO], so it is easy to be confused about which one to use when.  
+be-hydrated serves a similar purpose to be-hydrating[TO-DO] and be-kibitzing[TO-DO], so it is easy to be confused about which one to use when. 
+
+Basically, be-hydrated is intended to be applied on the decorator itself, whereas be-hydrating is intended to be applied to elements through the shadow DOM realm, and be-kibitzing pierces into shadow DOM realms.
 
 The following table should help clarify which one to use when:
 
@@ -72,7 +74,7 @@ The following table should help clarify which one to use when:
    <thead>
     <th>Feature</th>
     <th>be-hydrated</th>
-    <th>be-set</th>
+    <th>be-hydrating</th>
     <th>be-kibitzing</th>
    </thead>
    <tr>
