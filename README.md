@@ -6,12 +6,13 @@ It doesn't strive to replace server-side rendering utilizing attributes for case
 
 But for all other cases, it provides the ability to circumvent the somewhat chatty approach of using individual attributes, when it would be easier for everyone to skip all that and set the property values directly via a single object.assign (but deep merge is also supported).
 
+Another benefit of this approach is that settings can be typed if using an mjs file to define HTML.
+
 ## Example 1:  Applied directly to an element: [TODO]
 
 ```html
 <my-custom-element defer-hydration=7 be-hydrated='
 {
-    "deferAttrib": "defer-hydration",
     "props":{    
         "myStringProp": "supercalifragilisticexpialidocious",
         "myNumProp": 6.022140857E23,

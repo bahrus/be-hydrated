@@ -3,41 +3,16 @@ import {register} from 'be-hive/register.js';
 import {BeHydratedVirtualProps, BeHydratedProps, BeHydratedActions} from './types';
 
 export class BeHydratedController implements BeHydratedActions{
-    #mutationObserver: MutationObserver | undefined;
+
     #target!: Element
     intro(proxy: Element & BeHydratedVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
         this.#target = target;
     }
-    onDeferAttribs({deferAttribs, proxy}: this): void {
-        if(!this.hasDeferAttrib(this)){
-            proxy.noBlockingAttrib = true;
-        }else{
-            if(this.#mutationObserver !== undefined){
-                this.#mutationObserver.disconnect();
-            }
-            const mutationObserverInit: MutationObserverInit = {
-                attributes: true,
-            };
-            this.#mutationObserver = new MutationObserver(() => {
-                if(!this.hasDeferAttrib(this)){
-                    proxy.noBlockingAttrib = true;
-                    this.#mutationObserver!.disconnect();
-                }
-            });
-        }
+    onDeferAttrib({proxy, scriptRef, scriptRefReady}: this): {readyToMerge: boolean} {
+        return {readyToMerge: !scriptRef || scriptRefReady};
     }
 
-    linkReadyToMerge({noBlockingAttrib, scriptRef, scriptRefReady}: this){
-        return {
-            readyToMerge: noBlockingAttrib && (!scriptRef || scriptRefReady)
-        };
-    }
-
-    hasDeferAttrib({deferAttribs}: this): boolean{
-        return deferAttribs.some(attrib => this.proxy.hasAttribute(attrib));
-    }
-
-    async onReadyToMerge({props, deepMerge, complexProps, script, preSetMethods, postSetMethods}: this): Promise<void>{
+    async onReadyToMerge({props, deepMergeProps, complexProps, script}: this): Promise<void>{
         const src = {...props};
         
         if(complexProps !== undefined){
@@ -51,26 +26,12 @@ export class BeHydratedController implements BeHydratedActions{
                 src[key] = exp;
             }
         }
-        if(preSetMethods !== undefined){
-            for(const method of preSetMethods){
-                if(typeof((<any>this.#target)[method]) === 'function'){
-                    await (<any>this.#target)[method]();
-                }
-            }
-        }
-        if(deepMerge){
+        if(deepMergeProps){
             const {mergeDeep} = await import('trans-render/lib/mergeDeep.js');
-            mergeDeep(this.#target, src);
-        }else{
-            Object.assign(this.#target, src);
+            mergeDeep(this.#target, deepMergeProps);
         }
-        if(postSetMethods !== undefined){
-            for(const method of postSetMethods){
-                if(typeof((<any>this.#target)[method]) === 'function'){
-                    await (<any>this.#target)[method]();
-                }
-            }
-        }
+        Object.assign(this.#target, src);
+        //TODO:  decrement defer-hydration setting
     }
 
     onScriptRef({scriptRef, proxy}: this): void {
@@ -101,20 +62,17 @@ define<BeHydratedProps & BeDecoratedProps<BeHydratedProps, BeHydratedActions>, B
         propDefaults:{
             upgrade,
             ifWantsToBe,
-            virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttribs', 'deepMerge', 'readyToMerge', 'noBlockingAttrib', 'scriptRefReady', 'script', 'preSetMethods', 'postSetMethods'],
+            virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttrib', 'deepMergeProps', 'readyToMerge', 'scriptRefReady', 'script'],
             proxyPropDefaults:{
-                deferAttribs: [],
-                preSetMethods: ['attachQR'],
-                postSetMethods: ['detachQR'],
+                deferAttrib: 'defer-hydration',
             }
         },
         actions:{
-            onDeferAttribs: 'deferAttribs',
-            linkReadyToMerge: {
-                ifKeyIn: ['scriptRef', 'noBlockingAttrib', 'scriptRefReady']
-            },
+            onDeferAttrib: 'deferAttrib',
             onReadyToMerge: 'readyToMerge',
             onScriptRef: 'scriptRef',
         }
     }
 });
+
+register(ifWantsToBe, upgrade, tagName);
