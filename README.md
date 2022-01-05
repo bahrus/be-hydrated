@@ -8,6 +8,8 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
 
 Another benefit of this approach is that settings can be typed if using an mjs file to define HTML.
 
+[TODO] support observe once?
+
 ## Example 1:  Applied directly to an element: [TODO]
 
 ```html
