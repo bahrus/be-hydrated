@@ -8,8 +8,6 @@ But for all other cases, it provides the ability to circumvent the somewhat chat
 
 Another benefit of this approach is that settings can be typed if using an mjs file to define HTML.
 
-[TODO] support observe once?
-
 ## Example 1:  Applied directly to an element: [TODO]
 
 ```html
@@ -42,11 +40,52 @@ Another benefit of this approach is that settings can be typed if using an mjs f
 </script>
 ```
 
+## Example 2 The famous Vaadin Date Picker
+
+In this example:  https://codesandbox.io/s/shy-tdd-8b4tq?file=/src/App.js we need to use deepComplexProp merging as well:
+
+```html
+<vaadin-date-picker be-hydrated='
+{
+    "props":{    
+        "i18n": {
+            "monthNames": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+            "weekdays": ["A", "B", "C", "D", "E", "F", "G", "H"],
+            "weekdaysShort": ["A", "B", "C", "D", "E", "F", "G", "H"],
+            "firstDayOfWeek": 0,
+            "week": "Weekio",
+            "calendar": "Calendario",
+            "today": "NOWWW",
+            "cancel": "Oh no"
+        }
+    },
+    "scriptRef": "my-script",
+    "complexProps":{
+        "i18n": "i18n"
+    }
+
+}'></vaadin-date-picker>
+<script nomodule id=my-script be-exportable>
+    export const i18n = {
+        formatDate: function(){
+            return "hahaha";
+        },
+        parseDate: function(){
+            return new Date();
+        },
+        formatTitle: function(){
+            return "lol";
+        }
+    }
+</script>
+```
+
+What this example demonstrates is we need to deep merge the complexProps into the props.
+
 Some custom element libraries may provide the ability to prevent reacting while multiple set operations take place, only reacting after that is all done, based on the defer-hydration attribute.
 
-When be-hydrated has finished, it reduces the number value of defer-hydration by 1.  If defer-hydration is value 2, the next value will just be defer-hydration = ''.  If the value of defer-hydration is '' then it will be removed.
+When be-hydrated has finished, it reduces the number value of defer-hydration by 1.  If defer-hydration is value 2, the next value will just be defer-hydration = '1'.  If the value of defer-hydration is '' or '1' then it will be removed.
 
-deferAttrib is set to "defer-hydration" by default.  To not do anything related to that attribute, set it to false.
 
 ## Example 2:  Applied to the previous element, including adding light children [TODO]
 
