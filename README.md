@@ -62,7 +62,8 @@ In this example:  https://codesandbox.io/s/shy-tdd-8b4tq?file=/src/App.js we nee
     "scriptRef": "my-script",
     "complexProps":{
         "i18n": "i18n"
-    }
+    },
+    "waitForUpgrade": true
 
 }'></vaadin-date-picker>
 <script nomodule id=my-script be-exportable>
@@ -81,6 +82,8 @@ In this example:  https://codesandbox.io/s/shy-tdd-8b4tq?file=/src/App.js we nee
 ```
 
 What this example demonstrates is we need to deep merge the complexProps into the props.
+
+The problem is that could preclude deep merging into the element itself, like we can do with style.  Seems to be a bit of a conundrum.
 
 Some custom element libraries may provide the ability to prevent reacting while multiple set operations take place, only reacting after that is all done, based on the defer-hydration attribute.
 
