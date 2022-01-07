@@ -112,7 +112,8 @@ define<BeHydratedProps & BeDecoratedProps<BeHydratedProps, BeHydratedActions>, B
             ],
             proxyPropDefaults:{
                 deferAttrib: 'defer-hydration',
-            }
+            },
+            intro: 'intro',
         },
         actions:{
             checkConditions: {

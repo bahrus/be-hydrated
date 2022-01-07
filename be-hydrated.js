@@ -98,7 +98,8 @@ define({
             ],
             proxyPropDefaults: {
                 deferAttrib: 'defer-hydration',
-            }
+            },
+            intro: 'intro',
         },
         actions: {
             checkConditions: {
@@ -109,6 +110,9 @@ define({
             onScriptRef: 'scriptRef',
             onWaitForUpgrade: 'waitForUpgrade',
         }
+    },
+    complexPropDefaults:{
+        controller: BeHydratedController,
     }
 });
 register(ifWantsToBe, upgrade, tagName);
