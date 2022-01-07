@@ -1,39 +1,37 @@
 import { define } from 'be-decorated/be-decorated.js';
+import { register } from 'be-hive/register.js';
 export class BeHydratedController {
-    #mutationObserver;
     #target;
     intro(proxy, target, beDecorProps) {
         this.#target = target;
     }
-    onDeferAttribs({ deferAttribs, proxy }) {
-        if (!this.hasDeferAttrib(this)) {
-            proxy.noBlockingAttrib = true;
-        }
-        else {
-            if (this.#mutationObserver !== undefined) {
-                this.#mutationObserver.disconnect();
+    checkConditions({ proxy, scriptRef, scriptRefReady, waitForUpgrade, upgraded }) {
+        return { readyToMerge: (!scriptRef || scriptRefReady) && (!waitForUpgrade || upgraded) };
+    }
+    doRecursiveSearch(src, exports) {
+        for (const key in src) {
+            const val = src[key];
+            switch (typeof val) {
+                case 'object':
+                    if (val) {
+                        this.doRecursiveSearch(val, exports);
+                    }
+                    break;
+                case 'string':
+                    if (val.startsWith('import::')) {
+                        const importPath = val.substring('import::'.length);
+                        src[key] = exports[importPath];
+                    }
             }
-            const mutationObserverInit = {
-                attributes: true,
-            };
-            this.#mutationObserver = new MutationObserver(() => {
-                if (!this.hasDeferAttrib(this)) {
-                    proxy.noBlockingAttrib = true;
-                    this.#mutationObserver.disconnect();
-                }
-            });
         }
     }
-    linkReadyToMerge({ noBlockingAttrib, scriptRef, scriptRefReady }) {
-        return {
-            readyToMerge: noBlockingAttrib && (!scriptRef || scriptRefReady)
-        };
-    }
-    hasDeferAttrib({ deferAttribs }) {
-        return deferAttribs.some(attrib => this.proxy.hasAttribute(attrib));
-    }
-    async onReadyToMerge({ props, deepMerge, complexProps, script }) {
-        const src = { ...props };
+    async onReadyToMerge({ props, deepMergeProps, complexProps, scriptRefProps, script }) {
+        let evaluatedProps;
+        if (scriptRefProps !== undefined) {
+            const modExport = script._modExport;
+            this.doRecursiveSearch(scriptRefProps, modExport);
+        }
+        let src = { ...props, ...scriptRefProps };
         if (complexProps !== undefined) {
             const modExport = script._modExport;
             for (const key in complexProps) {
@@ -44,13 +42,12 @@ export class BeHydratedController {
                 src[key] = exp;
             }
         }
-        if (deepMerge) {
+        if (deepMergeProps) {
             const { mergeDeep } = await import('trans-render/lib/mergeDeep.js');
-            mergeDeep(this.#target, src);
+            mergeDeep(this.#target, deepMergeProps);
         }
-        else {
-            Object.assign(this.#target, src);
-        }
+        Object.assign(this.#target, src);
+        //TODO:  decrement defer-hydration setting
     }
     onScriptRef({ scriptRef, proxy }) {
         const script = this.#target.getRootNode().querySelector('#' + scriptRef);
@@ -66,6 +63,15 @@ export class BeHydratedController {
             }, { once: true });
         }
     }
+    async onWaitForUpgrade({ proxy }) {
+        const localName = this.#target.localName;
+        if (!localName.includes('-')) {
+            proxy.upgraded = true;
+            return;
+        }
+        await customElements.whenDefined(localName);
+        proxy.upgraded = true;
+    }
 }
 ;
 const tagName = 'be-hydrated';
@@ -77,18 +83,32 @@ define({
         propDefaults: {
             upgrade,
             ifWantsToBe,
-            virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttribs', 'deepMerge', 'readyToMerge', 'noBlockingAttrib', 'scriptRefReady', 'script'],
+            virtualProps: [
+                'deferAttrib',
+                'deepMergeProps',
+                'props',
+                'scriptRef',
+                'scriptRefProps',
+                'complexProps',
+                'readyToMerge',
+                'scriptRefReady',
+                'script',
+                'waitForUpgrade',
+                'upgraded'
+            ],
             proxyPropDefaults: {
-                deferAttribs: ['defer-hydration', 'be-set']
+                deferAttrib: 'defer-hydration',
             }
         },
         actions: {
-            onDeferAttribs: 'deferAttribs',
-            linkReadyToMerge: {
-                ifKeyIn: ['scriptRef', 'noBlockingAttrib', 'scriptRefReady']
+            checkConditions: {
+                ifAllOf: ['deferAttrib'],
+                ifKeyIn: ['scriptRef', 'scriptRefReady', 'waitForUpgrade', 'upgraded'],
             },
             onReadyToMerge: 'readyToMerge',
             onScriptRef: 'scriptRef',
+            onWaitForUpgrade: 'waitForUpgrade',
         }
     }
 });
+register(ifWantsToBe, upgrade, tagName);

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <xtal-frappe-chart chart-title="My Awesome Chart" type=bar height=250 is-navigable data='
+    {
+      "labels": ["12am-3am", "3am-6am", "6am-9am", "9am-12pm",
+        "12pm-3pm", "3pm-6pm", "6pm-9pm", "9pm-12am"],
+  
+      "datasets": [
+        {
+          "name": "Some Data", "color": "light-blue",
+          "values": [25, 40, 30, 35, 8, 52, 17, -4]
+        },
+        {
+          "name": "Another Set", "color": "violet",
+          "values": [25, 50, -10, 15, 18, 32, 27, 14]
+        },
+        {
+          "name": "Yet Another", "color": "blue",
+          "values": [15, 20, -3, -15, 58, 12, -17, 37]
+        }
+      ]
+    }
+    '></xtal-frappe-chart>
+    <script type=importmap>
+        {
+            "imports":{
+                "trans-render/": "../node_modules/trans-render/",
+                "xtal-element/": "../node_modules/xtal-element/",
+                "be-decorated/": "../node_modules/be-decorated/",
+                "be-hive/": "../node_modules/be-hive/"
+            }
+        }
+    </script>
+      <script  type=module>
+        import '../be-hydrated.js';
+        import 'https://esm.run/xtal-frappe-chart';
+      </script>
+    </body>
+</html>
