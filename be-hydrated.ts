@@ -8,12 +8,37 @@ export class BeHydratedController implements BeHydratedActions{
     intro(proxy: Element & BeHydratedVirtualProps, target: Element, beDecorProps: BeDecoratedProps){
         this.#target = target;
     }
-    onDeferAttrib({proxy, scriptRef, scriptRefReady}: this): {readyToMerge: boolean} {
-        return {readyToMerge: !scriptRef || scriptRefReady};
+    checkConditions({proxy, scriptRef, scriptRefReady, waitForUpgrade, upgraded}: this): {readyToMerge: boolean} {
+        return {readyToMerge: (!scriptRef || scriptRefReady) && (!waitForUpgrade || upgraded)};
     }
 
-    async onReadyToMerge({props, deepMergeProps, complexProps, script}: this): Promise<void>{
-        const src = {...props};
+    doRecursiveSearch(src: any, exports: any){
+        for(const key in src){
+            const val = src[key];
+            switch(typeof val){
+                case 'object':
+                    if(val){
+                        this.doRecursiveSearch(val, exports);
+                    }
+                    break;
+                case 'string':
+                    if(val.startsWith('import::')){
+                        const importPath = val.substring('import::'.length);
+                        src[key] = exports[importPath];
+                    }
+            }
+        }
+            
+    }
+
+    async onReadyToMerge({props, deepMergeProps, complexProps, scriptRefProps, script}: this): Promise<void>{
+        let evaluatedProps: any;
+        
+        if(scriptRefProps!==undefined){
+            const modExport = (<any>script)._modExport;
+            this.doRecursiveSearch(scriptRefProps, modExport);
+        }
+        let src = {...props, ...scriptRefProps};
         
         if(complexProps !== undefined){
             const modExport = (<any>script)._modExport;
@@ -46,6 +71,16 @@ export class BeHydratedController implements BeHydratedActions{
             }, {once: true});
         }
     }
+
+    async onWaitForUpgrade({proxy}: this): Promise<void>{
+        const localName = this.#target.localName;
+        if(!localName.includes('-')){
+            proxy.upgraded = true;
+            return;
+        }
+        await customElements.whenDefined(localName);
+        proxy.upgraded = true;
+    }
 }
 
 export interface BeHydratedController extends BeHydratedProps{};
@@ -62,15 +97,31 @@ define<BeHydratedProps & BeDecoratedProps<BeHydratedProps, BeHydratedActions>, B
         propDefaults:{
             upgrade,
             ifWantsToBe,
-            virtualProps: ['props', 'scriptRef', 'complexProps', 'deferAttrib', 'deepMergeProps', 'readyToMerge', 'scriptRefReady', 'script'],
+            virtualProps: [
+                'deferAttrib',
+                'deepMergeProps',
+                'props', 
+                'scriptRef',
+                'scriptRefProps',
+                'complexProps',
+                'readyToMerge',
+                'scriptRefReady',
+                'script', 
+                'waitForUpgrade', 
+                'upgraded'
+            ],
             proxyPropDefaults:{
                 deferAttrib: 'defer-hydration',
             }
         },
         actions:{
-            onDeferAttrib: 'deferAttrib',
+            checkConditions: {
+                ifAllOf: ['deferAttrib'],
+                ifKeyIn: ['scriptRef', 'scriptRefReady', 'waitForUpgrade', 'upgraded'],
+            },
             onReadyToMerge: 'readyToMerge',
             onScriptRef: 'scriptRef',
+            onWaitForUpgrade: 'waitForUpgrade',
         }
     }
 });
