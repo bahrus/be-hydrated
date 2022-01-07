@@ -1,6 +1,6 @@
 # be-hydrated [TODO]
 
-be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating a built-in or imported custom element.  
+be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating a built-in element or an imported custom element.  
 
 It doesn't strive to replace server-side rendering utilizing attributes for cases where styling is positively impacted by the presence of the attribute.  Attribute away!
 
@@ -11,7 +11,7 @@ Another benefit of this approach is that settings can be typed if using an mjs f
 ## Example 1:  Applied directly to an element: [TODO]
 
 ```html
-<my-custom-element defer-hydration=7 be-hydrated='
+<my-custom-element defer-hydration=4 be-hydrated='
 {
     "props":{    
         "myStringProp": "supercalifragilisticexpialidocious",
@@ -40,14 +40,21 @@ Another benefit of this approach is that settings can be typed if using an mjs f
 </script>
 ```
 
+After finishing, be-hydrated does the following to the defer-hydration attribute[TODO]:
+
+1.  If the value is a number larger than 1, it decrements the value by 1.
+2.  If the value is 1 or '', it removes the attribute.
+
 ## Example 2 The famous Vaadin Date Picker
 
-In this example:  https://codesandbox.io/s/shy-tdd-8b4tq?file=/src/App.js we need to use deepComplexProp merging as well:
+In this example:  https://codesandbox.io/s/shy-tdd-8b4tq?file=/src/App.js we need to set some function callbacks within the property configuration.
+
+We do that using the alternative setting "scriptRefProps", which recursively looks for settings whose values start with "import::".  So:
 
 ```html
 <vaadin-date-picker be-hydrated='
 {
-    "props":{    
+    "scriptRefProps":{    
         "i18n": {
             "monthNames": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
             "weekdays": ["A", "B", "C", "D", "E", "F", "G", "H"],
@@ -56,14 +63,13 @@ In this example:  https://codesandbox.io/s/shy-tdd-8b4tq?file=/src/App.js we nee
             "week": "Weekio",
             "calendar": "Calendario",
             "today": "NOWWW",
-            "cancel": "Oh no"
+            "cancel": "Oh no",
+            "formatDate": "import::formatDate",
+            "parseDate": "import::parseDate",
+            "formatTitle": "import::formatTitle"
         }
     },
     "scriptRef": "my-script",
-    "complexProps":{
-        "i18n": "i18n"
-    },
-    "waitForUpgrade": true
 
 }'></vaadin-date-picker>
 <script nomodule id=my-script be-exportable>
@@ -80,14 +86,6 @@ In this example:  https://codesandbox.io/s/shy-tdd-8b4tq?file=/src/App.js we nee
     }
 </script>
 ```
-
-What this example demonstrates is we need to deep merge the complexProps into the props.
-
-The problem is that could preclude deep merging into the element itself, like we can do with style.  Seems to be a bit of a conundrum.
-
-Some custom element libraries may provide the ability to prevent reacting while multiple set operations take place, only reacting after that is all done, based on the defer-hydration attribute.
-
-When be-hydrated has finished, it reduces the number value of defer-hydration by 1.  If defer-hydration is value 2, the next value will just be defer-hydration = '1'.  If the value of defer-hydration is '' or '1' then it will be removed.
 
 
 ## Example 2:  Applied to the previous element, including adding light children [TODO]
