@@ -1,6 +1,6 @@
 # be-hydrated [TODO]
 
-be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating a built-in element or an imported custom element.  
+be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  
 
 It doesn't strive to replace server-side rendering utilizing attributes for cases where styling is positively impacted by the presence of the attribute.  Attribute away!
 
