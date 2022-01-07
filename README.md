@@ -87,6 +87,9 @@ We do that using the alternative setting "scriptRefProps", which recursively loo
 </script>
 ```
 
+From a performance point of view, it is better to use the "props" with pure JSON, and "complexProps" for properties that aren't JSON serializable.
+
+But in scenarios where a prop is a combination of the two, "scriptRefProps" may be the best option.  The recursive search for values starting with "import::" certainly imposes a bit of a cost.
 
 ## Example 2:  Applied to the previous element, including adding light children [TODO]
 

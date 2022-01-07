@@ -5,6 +5,7 @@ export interface BeHydratedVirtualProps {
     deepMergeProps: any,
     props: any,
     scriptRef: string,
+    scriptRefProps: any,
     complexProps:any,
     readyToMerge: boolean,
     scriptRefReady: boolean,
