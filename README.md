@@ -91,22 +91,6 @@ From a performance point of view, it is better to use the "props" with pure JSON
 
 But in scenarios where a prop is a combination of the two, "scriptRefProps" may be the best option.  The recursive search for values starting with "import::" certainly imposes a bit of a cost.
 
-## Example 2:  Applied to the previous element, including adding light children [TODO]
-
-```html
-<html-include href="https://cdn.jsdelvr.net/my-ssr-web-component/my-ssr-web-component.html">
-</html-include>
-<template be-hydrated='{
-    "upSearch": "*",
-    "selectWithin": "my-ssr-web-component",
-    "etc": "etc"
-}'>
-<my-light-children></my-light-children>
-<template>
-```
-
-This is useful when loading a static html file that provides a SSR-d custom element, but the properties and light children then need to be passed in via the client.
-
 ## Fellow behaviors
 
 be-hydrated serves a similar purpose to be-hydrating[TO-DO] and be-kibitzing[TO-DO], so it is easy to be confused about which one to use when. 
@@ -130,9 +114,15 @@ The following table should help clarify which one to use when:
     <td>Unlimited</td>
    <tr>
     <td>Elements it can adorn</td>
-    <td>Any, but use template if hydration includes setting light children</td>
+    <td>Any</td>
     <td>template</td>
     <td>template</td>
+   </tr>
+   <tr>
+   <td>Can insert template into target</td>
+    <td>No</td>
+    <td>Yes</td>
+    <td>Yes</td>
    </tr>
    <tr>
     <td>Can Pierce Shadow DOM</td>
