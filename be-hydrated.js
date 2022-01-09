@@ -111,7 +111,7 @@ define({
             onWaitForUpgrade: 'waitForUpgrade',
         }
     },
-    complexPropDefaults:{
+    complexPropDefaults: {
         controller: BeHydratedController,
     }
 });

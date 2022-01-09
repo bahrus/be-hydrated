@@ -124,6 +124,9 @@ define<BeHydratedProps & BeDecoratedProps<BeHydratedProps, BeHydratedActions>, B
             onScriptRef: 'scriptRef',
             onWaitForUpgrade: 'waitForUpgrade',
         }
+    },
+    complexPropDefaults:{
+        controller: BeHydratedController,
     }
 });
 
