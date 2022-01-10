@@ -9,7 +9,7 @@
     "JSON",
     "bind"
   ],
-  "description": "",
+  "description": "be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  ",
   "main": "be-hydrated.js",
   "module": "be-hydrated.js",
   "exports": {
