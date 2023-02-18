@@ -4,8 +4,6 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 
 ## Lingo
 
-## Lingo
-
 ```html
 <div itemscope>
     <button>30</button>
