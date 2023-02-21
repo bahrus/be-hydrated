@@ -2,7 +2,7 @@
 
 be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  
 
-## Lingo
+## Poetic Lingo
 
 ```html
 <div itemscope>
@@ -13,6 +13,21 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
         "onClickOfButtonDoInc": "count",
         "shareCountToButtonAs": "textContent"
     }'>
+    </script>
+</div>
+```
+
+## Prose Lingo
+
+```html
+<div itemscope>
+    <button>30</button>
+    <script nomodule  be-hydrated='
+        AffectAndObserve $:beScoped.
+        Derive count as number from button.
+        On click of button do inc count.
+        Share count to button as text content.
+    '>
     </script>
 </div>
 ```
