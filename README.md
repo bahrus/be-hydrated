@@ -2,7 +2,7 @@
 
 be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  
 
-## Poetic Lingo
+## Zusammengesetzte Wörter Lingo
 
 ```html
 <div itemscope>
@@ -17,7 +17,7 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 </div>
 ```
 
-## Prose Lingo
+## Hemingway Prose Lingo
 
 ```html
 <div itemscope>
