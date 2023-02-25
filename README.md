@@ -55,9 +55,7 @@ which can be broken down to:
 </div>
 ```
 
-Notation-wise, the triumvirate "plays favorites" with a particular class of components, so it is "cheating" as far as framework-neutrality goes.
-
-For components that do not abide by the requirements discussed below, the syntax will tend to be quite a bit more verbose, and what it can accomplish can be more limited.  These decorators attempt to emulate a property bag interface by intrusively interjecting custom code inside property setters.
+Notation-wise, the triumvirate "plays favorites" with a particular class of components, so it is "cheating" as far as framework-neutrality goes.  This is most applicable to the be-sharing leg of the triumvirate.
 
 The requirements for what it would take for any component library to play well with the triumvirate are fairly wide open, and is discussed below.
 
@@ -82,5 +80,5 @@ First Param          | Second Param               | Home in on                  
 ---------------------|----------------------------|----------------------------------------------| ---------------------------------------------------------
 parent               |NA                          | beDecorated.beScoped.scope (after resolving) |  Observe beScoped of parent.
 self                 |NA                          | .xtalState after resolving                   |  Observe xtalState of self.
-closest              |[part ~= first-section]     | .myMobxStore after upgrade of custom element |  Observe my mobx store after my mobx store changed event.
+closest              |[part ~= first-section]     | .myMobxStore after upgrade of custom element |  Observe my mobx store of parent after my mobx store changed event.
 closest
