@@ -8,7 +8,10 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 <div itemscope>
     <button>30</button>
     <script nomodule  be-hydrated='{
-        "affectAndObserve": "$.beScoped",
+        "affectAndObserve": {
+            "target": "parent",
+            "homeInOn": "beScoped"
+        },
         "deriveCountAsNumberFrom": "button",
         "onClickOfButtonDoInc": "count",
         "shareCountToButtonAs": "textContent"
@@ -73,12 +76,6 @@ Component                               |Path to property bag              |Conn
 xtal-element base class web component   |oElement.xtalState                |xtal-state-resolved
 be-scoped decorator                     |oElement.beDecorated.scoped.scope |be-decorated.scoped.resolved
 
-To illustrate the advantage
 
 
-First Param          | Second Param               | Home in on                                   | Observe statement
----------------------|----------------------------|----------------------------------------------| ---------------------------------------------------------
-parent               |NA                          | beDecorated.beScoped.scope (after resolving) |  Observe beScoped of parent.
-self                 |NA                          | .xtalState after resolving                   |  Observe xtalState of self.
-closest              |[part ~= first-section]     | .myMobxStore after upgrade of custom element |  Observe my mobx store of parent after my mobx store changed event.
-closest
+
