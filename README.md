@@ -62,7 +62,7 @@ Notation-wise, the triumvirate "plays favorites" with a particular class of comp
 
 The requirements for what it would take for any component library to play well with the triumvirate are fairly wide open, and is discussed below.
 
-What makes things hum along well is to provide a "PropertyBag" EventTarget associated with the DOM element/ that [propagates property changes](https://github.com/bahrus/trans-render/blob/baseline/lib/PropertyBag.ts#L28) of an object thusly:
+What makes things hum along well is to provide a "Propagating" EventTarget associated with (but not the same as) the DOM element, that [propagates property changes](https://github.com/bahrus/trans-render/blob/baseline/lib/PropertyBag.ts#L28) of an object thusly:
 
 1.  It emits events with the same name as the property, every time a publicly accessible property changes.  The detail of the event contains the old value, the new value, and the name of the property that changed.
 2.  It emits a common "prop-changed" event for all property changes, regardless of name, with the same detail payload.
@@ -71,10 +71,10 @@ What makes things hum along well is to provide a "PropertyBag" EventTarget assoc
 
 Component classes that currently abide by this protocol are [xtal-element](https://github.com/bahrus/xtal-element) based web components, that includes declarative custom elements based on [be-definitive](https://github.com/bahrus/be-definitive), and the DOM elements that adorn themselves with the [be-scoped](https://github.com/bahrus/be-scoped) element decorator.
 
-Component                               |Path to property bag              |Connection established event name
-----------------------------------------|----------------------------------|---------------------------------
-xtal-element base class web component   |oElement.xtalState                |xtal-state-resolved
-be-scoped decorator                     |oElement.beDecorated.scoped.scope |be-decorated.scoped.resolved
+Component                               |Path to state                     |Path to propagating event target  |Connection established event name
+----------------------------------------|----------------------------------|----------------------------------|---------------------------------
+xtal-element based class web component  |oElement                          |oElement.xtalState                |xtal-state-resolved
+be-scoped decorator                     |oElement.beDecorated.scoped.scope |oElement.beDecorated.scoped.scope |be-decorated.scoped.resolved
 
 
 
