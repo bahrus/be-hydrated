@@ -23,7 +23,7 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 <div itemscope>
     <button>30</button>
     <script nomodule  be-hydrated='
-        Affect and observe $:beScoped.
+        Affect and observe beScoped of parent.
         Derive count as number from button.
         On click of button do inc count.
         Share count to button as text content.
