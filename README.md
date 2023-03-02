@@ -8,6 +8,12 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 <div itemscope>
     <button>30</button>
     <script nomodule  be-hydrated='{
+        "affect": "parent",
+        "observingRealm": "parent",
+        "homeInOn": {
+            "pathOfObservingRealm": "beDecorated.beScoped.scope",
+            "pathOfAffectedInstance": "beDecorated.beScoped.scope"
+        },
         "affectAndObserve": {
             "target": "parent",
             "homeInOn": "beScoped"
@@ -20,13 +26,32 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 </div>
 ```
 
-## Hemingway Prose Lingo
+## Hemingway Notation
 
 ```html
 <div itemscope>
     <button>30</button>
     <script nomodule  be-hydrated='
-        Affect and observe beScoped of parent.
+        Affect parent instance.
+        Affect be scope:scope of said instance.
+        Observe parent instance.
+        Observe be scoped:scope of said instance.
+        Derive count as number from button.
+        On click of button do inc count.
+        Share count to button as text content.
+    '>
+    </script>
+</div>
+```
+
+Small short cut:
+
+```html
+<div itemscope>
+    <button>30</button>
+    <script nomodule  be-hydrated='
+        Hydrate parent instance.
+        Hydrate scope:scope of said instance.
         Derive count as number from button.
         On click of button do inc count.
         Share count to button as text content.
