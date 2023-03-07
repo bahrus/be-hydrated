@@ -2,85 +2,60 @@
 
 be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  
 
-## Zusammengesetzte Wörter Lingo
-
-```html
-<div itemscope>
-    <button>30</button>
-    <script nomodule  be-hydrated='{
-        "affect": "parent",
-        "observingRealm": "parent",
-        "homeInOn": {
-            "pathOfObservingRealm": "beDecorated.beScoped.scope",
-            "pathOfAffectedInstance": "beDecorated.beScoped.scope"
-        },
-        "affectAndObserve": {
-            "target": "parent",
-            "homeInOn": "beScoped"
-        },
-        "deriveCountAsNumberFrom": "button",
-        "onClickOfButtonDoInc": "count",
-        "shareCountToButtonAs": "textContent"
-    }'>
-    </script>
-</div>
-```
-
 ## Hemingway Notation
 
 ```html
-<div itemscope>
+<div be-scoped>
     <button>30</button>
-    <script nomodule  be-hydrated='
-        Affect parent instance.
-        Affect be scope:scope of said instance.
-        Observe parent instance.
-        Observe be scoped:scope of said instance.
-        Derive count as number from button.
-        On click of button do inc count.
-        Share count to button as text content.
-    '>
-    </script>
 </div>
+<template be-hydrated='
+    Affect previous element sibling.//Default setting.
+    Target beScoped.scope.
+    Observe previous element sibling.//Default setting.
+    Scrutinize beScoped:scope.
+    Derive count as number from button.
+    On click of button do increment count.
+    Share count to button as text content.
+'>
+</template>
 ```
 
 Small short cut:
 
 ```html
-<div itemscope>
+<div be-scoped>
     <button>30</button>
-    <script nomodule  be-hydrated='
-        Hydrate parent instance.
-        Hydrate scope:scope of said instance.
-        Derive count as number from button.
-        On click of button do inc count.
-        Share count to button as text content.
-    '>
-    </script>
 </div>
+<template be-hydrated='
+    Hydrate beScoped:scope.
+    Derive count as number from button.
+    On click of button do increment count.
+    Share count to button as text content.
+'>
+</template>
 ```
 
 which can be broken down to:
 
 ```html
-<div itemscope>
+<div be-scoped>
     <button>30</button>
-    <script nomodule  
-        be-derived='{
-            "affect": "$.beScoped",
-            "deriveCountAsNumberFrom": "button"
-        }' 
-        be-eventful='{
-            "affect": "$.beScoped",
-            "onClickOfButtonDoInc": "count"
-        }'
-        be-sharing='{
-            "observe": "$.beScoped",
-            "shareCountToButtonAs": "textContent"
-        }'
-    >
-    </script>
 </div>
+<template  
+    be-derived='
+    Target beScoped.scope.
+    Derive count as number from button.
+    ' 
+    be-eventful='
+    Target beScope.scope.
+    On click of button do increment count.
+    '
+    be-sharing='
+    Scrutinize beScope.scope.
+    Share count to button as text content.
+    '
+>
+</template>
 ```
 
 
