@@ -4,6 +4,7 @@
 		"module": "ESNext",
 		"sourceMap": false,
 		"experimentalDecorators": false,
+		"forceConsistentCasingInFileNames": true,
 		"newLine": "LF",
 		"watch": true,
 		"strict": true,
@@ -12,8 +13,6 @@
 		"be-hydrated.ts"
 	],
 	"exclude":[
-		"build",
-		"bower_components",
 		"node_modules"
 	]
 

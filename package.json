@@ -5,9 +5,7 @@
     "web-components",
     "web-component",
     "custom-element",
-    "custom-elements",
-    "JSON",
-    "bind"
+    "custom-elements"
   ],
   "description": "be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  ",
   "main": "be-hydrated.js",
@@ -21,20 +19,24 @@
   ],
   "types": "types.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "serve": "node node_modules/xtal-test/serve.js",
+    "serve": "node node_modules/may-it-serve/serve.js",
     "package-check": "package-check",
-    "doc": "custom-elements-manifest analyze"
+    "test": "playwright test"
   },
   "dependencies": {
     "be-decorated": "0.0.233",
+    "be-derived": "0.0.1",
+    "be-eventful": "0.0.2",
     "be-hive": "0.0.82",
+    "be-sharing": "0.0.2",
     "trans-render": "0.0.668"
+
   },
   "devDependencies": {
-    "xtal-test": "0.0.54",
+    "be-scoped": "0.0.5",
+    "may-it-serve": "0.0.5",
     "@skypack/package-check": "0.2.2",
-    "@custom-elements-manifest/analyzer": "0.5.7"
+    "@playwright/test": "1.31.2"
   },
   "repository": {
     "type": "git",

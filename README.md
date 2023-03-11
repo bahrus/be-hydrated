@@ -10,9 +10,9 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 </div>
 <template be-hydrated='
     Affect previous element sibling.//Default setting.
-    Target beScoped.scope.
+    Target beScoped.scope. //Target is a second level setting atop Affect.
     Observe previous element sibling.//Default setting.
-    Scrutinize beScoped:scope.
+    Scrutinize beScoped:scope. //Scrutinize is a second level setting atop Observe.
     Derive count as number from button.
     On click of button do increment count.
     Share count to button as text content.
