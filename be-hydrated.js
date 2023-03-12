@@ -12,19 +12,22 @@ export class BeHydrated extends EventTarget {
                 be: 'derived',
                 having: {
                     camelConfig
-                }
+                },
+                waitForResolved: true,
             },
             {
                 be: 'eventful',
                 having: {
                     camelConfig
-                }
+                },
+                waitForResolved: true,
             },
             {
                 be: 'sharing',
                 having: {
                     camelConfig
-                }
+                },
+                waitForResolved: true
             }
         ]);
         return mold;
@@ -46,7 +49,8 @@ define({
             parseAndCamelize: true,
             camelizeOptions: {
                 doSets: true,
-                simpleSets: ['Affect', 'Capture', 'Derive', 'Itemize', 'Observe', 'On', 'Scrutinize', 'Share', 'Survey', 'Target']
+                simpleSets: ['Affect', 'Capture', 'Observe', 'Scrutinize', 'Target'],
+                booleans: ['Itemize']
             }
         },
         actions: {
