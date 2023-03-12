@@ -21,6 +21,10 @@ Configuring be-hydrated can be done as a combination of two notation styles:  Ja
 
 *be-hydrated* can adorn both template and script elements, whichever is more convenient. 
 
+The JSON equivalent, discussed later, may be more convenient for the JavaScript crowd who prefer editing a pre-build *.mts/*.mjs file that compiles to *.html, benefitting from TypeScript compile checks.  
+
+Hemingway notation is more optimized for regular Joe's and Jill's editing HTML files.  It is the equivalent of markdown for JavaScript.
+
 ## Underneath the surface
 
 The configuration above is shorthand for:
@@ -41,7 +45,7 @@ The configuration above is shorthand for:
 </template>
 ```
 
-The JSON equivalent, discussed later, may be more convenient for the JavaScript crowd who prefer editing a pre-build *.mts/*.mjs file that compiles to *.html, benefitting from TypeScript compile checks.  Hemingway notation is more optimized for regular Joe's and Jill's editing HTML files.  
+  
 
 Breaking down the (hidden) meaning further, the configuration above is shorthand for:
 
