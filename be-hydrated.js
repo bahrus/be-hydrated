@@ -5,10 +5,11 @@ export class BeHydrated extends EventTarget {
         const { self, camelConfig } = pp;
         const { mount, hydrate } = camelConfig;
         if (mount !== undefined) {
-            const { affect, survey, observe } = camelConfig;
+            const { affect, survey, observe, capture } = camelConfig;
             camelConfig.affect = affect || mount;
             camelConfig.survey = survey || mount;
             camelConfig.observe = observe || mount;
+            camelConfig.capture = capture || (`${mount}Events`);
         }
         if (hydrate !== undefined) {
             const { target, scrutinize } = camelConfig;
