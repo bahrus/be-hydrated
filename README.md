@@ -4,7 +4,7 @@ be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hy
 
 ## Hemingway Notation
 
-Configuring the be-hydrated can be done as a combination of two notation styles:  JavaScriptObjectNotation, and/or what we refer to as ["Hemingway Notation"](https://bookanalysis.com/ernest-hemingway/writing-style/):
+Configuring be-hydrated can be done as a combination of two notation styles:  JavaScriptObjectNotation, and/or what we refer to as ["Hemingway Notation"](https://bookanalysis.com/ernest-hemingway/writing-style/):
 
 ```html
 <div be-scoped>
