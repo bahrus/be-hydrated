@@ -49,15 +49,15 @@ Breaking down the (hidden) meaning further, the configuration above is shorthand
 </div>
 <template  
     be-derived='
-    Target beScoped.scope.
+    Target beScoped:scope.
     Derive count as number from button.
     ' 
     be-eventful='
-    Target beScope.scope.
+    Target beScope:scope.
     On click of button do increment count.
     '
     be-sharing='
-    Scrutinize beScope.scope.
+    Scrutinize beScope:scope.
     Share count to button as text content.
     '
 >
