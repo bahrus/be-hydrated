@@ -5,7 +5,12 @@ import {CamelConfig as BeEventfulCamelConfig } from 'be-eventful/types';
 import {CamelConfig as BeSharingCamelConfig } from 'be-sharing/types';
 
 
-export interface CamelConfig extends BeDerivedCamelConfig, BeEventfulCamelConfig, BeSharingCamelConfig{}
+export interface CamelConfig extends BeDerivedCamelConfig, BeEventfulCamelConfig, BeSharingCamelConfig{
+    Mount?: [Scope],
+    mount?: Scope,
+    Hydrate?: [string],
+    hydrate: string, 
+}
 export interface EndUserProps {
     camelConfig?: CamelConfig;
 }

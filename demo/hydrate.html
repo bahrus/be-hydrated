@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div be-scoped>
+        <button>30</button>
+    </div>
+    <template be-hydrated='
+        Hydrate beScoped:scope.
+        Derive count as number from button.
+        On click of button do increment count.
+        Share count to button as text content.
+    '>
+    </template>
+
+    <script type=importmap>
+        {
+            "imports": {
+                "be-decorated/": "../node_modules/be-decorated/",
+                "be-derived/": "../node_modules/be-derived/",
+                "be-eventful/": "../node_modules/be-eventful/",
+                "be-exportable/": "../node_modules/be-exportable/",
+                "be-hive/": "../node_modules/be-hive/",
+                "be-hydrated/": "../node_modules/be-hydrated/",
+                "be-scoped/": "../node_modules/be-scoped/",
+                "be-sharing/": "../node_modules/be-sharing/",
+                "obj-ml/": "../node_modules/obj-ml/",
+                "trans-render/": "../node_modules/trans-render/"
+            }
+        }
+    </script>
+    <script type=module>
+        import '../be-hydrated.js';
+        import 'be-scoped/be-scoped.js';
+    </script>
+</body>
+</html>

@@ -3,6 +3,18 @@ import { register } from "be-hive/register.js";
 export class BeHydrated extends EventTarget {
     async onCamel(pp, mold) {
         const { self, camelConfig } = pp;
+        const { mount, hydrate } = camelConfig;
+        if (mount !== undefined) {
+            const { affect, survey, observe } = camelConfig;
+            camelConfig.affect = affect || mount;
+            camelConfig.survey = survey || mount;
+            camelConfig.observe = observe || mount;
+        }
+        if (hydrate !== undefined) {
+            const { target, scrutinize } = camelConfig;
+            camelConfig.target = target || hydrate;
+            camelConfig.scrutinize = scrutinize || hydrate;
+        }
         const { doBeHavings } = await import('trans-render/lib/doBeHavings.js');
         import('be-derived/be-derived.js');
         import('be-eventful/be-eventful.js');
@@ -49,7 +61,10 @@ define({
             parseAndCamelize: true,
             camelizeOptions: {
                 doSets: true,
-                simpleSets: ['Affect', 'Capture', 'Observe', 'Scrutinize', 'Target'],
+                simpleSets: [
+                    'Mount', 'Hydrate',
+                    'Affect', 'Capture', 'Observe', 'Scrutinize', 'Target'
+                ],
                 booleans: ['Itemize']
             }
         },

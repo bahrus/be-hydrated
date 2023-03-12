@@ -5,6 +5,18 @@ import {Actions, PP, Proxy, PPP, PPPP, CamelConfig} from './types';
 export class BeHydrated extends EventTarget implements Actions{
     async onCamel(pp: PP, mold: PPP): PPPP {
         const {self, camelConfig} = pp;
+        const {mount, hydrate} = camelConfig!;
+        if(mount !== undefined){
+            const {affect, survey, observe} = camelConfig!;
+            camelConfig!.affect = affect || mount;
+            camelConfig!.survey = survey || mount;
+            camelConfig!.observe = observe || mount;
+        }
+        if(hydrate !== undefined){
+            const {target, scrutinize} = camelConfig!;
+            camelConfig!.target = target || hydrate;
+            camelConfig!.scrutinize = scrutinize || hydrate;
+        }
         const {doBeHavings} = await import('trans-render/lib/doBeHavings.js');
         import('be-derived/be-derived.js');
         import('be-eventful/be-eventful.js');
@@ -53,7 +65,10 @@ define<Proxy & BeDecoratedProps<Proxy, Actions, CamelConfig>, Actions>({
             parseAndCamelize: true,
             camelizeOptions: {
                 doSets: true,
-                simpleSets: ['Affect', 'Capture', 'Observe', 'Scrutinize', 'Target'],
+                simpleSets: [
+                    'Mount', 'Hydrate',
+                    'Affect', 'Capture', 'Observe', 'Scrutinize', 'Target'
+                ],
                 booleans: ['Itemize']
             }
         },
