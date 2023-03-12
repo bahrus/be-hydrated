@@ -1,6 +1,6 @@
 # be-hydrated
 
-be-hydrated is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  
+*be-hydrated* is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns.  
 
 ## Hemingway Notation
 
@@ -18,6 +18,8 @@ Configuring be-hydrated can be done as a combination of two notation styles:  Ja
 '>
 </template>
 ```
+
+*be-hydrated* can adorn both template and script elements, whichever is more convenient. 
 
 ## Underneath the surface
 
