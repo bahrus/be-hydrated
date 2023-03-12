@@ -1,6 +1,6 @@
 {
   "name": "be-hydrated",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [
     "web-components",
     "web-component",
@@ -30,7 +30,6 @@
     "be-hive": "0.0.82",
     "be-sharing": "0.0.3",
     "trans-render": "0.0.670"
-
   },
   "devDependencies": {
     "be-scoped": "0.0.6",
