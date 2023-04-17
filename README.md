@@ -19,7 +19,7 @@ Configuring be-hydrated can be done as a combination of two notation styles:  Ja
 <template be-hydrated='
     Hydrate beScoped:scope.
     Derive count as number from button.
-    On click of button do increment count.
+    On click of button increment count.
     Share count to button as text content.
 '>
 </template>
@@ -45,7 +45,7 @@ The configuration above is shorthand for:
     Observe previous element sibling.//Default setting.
     Scrutinize beScoped:scope. //Scrutinize is a second level setting sitting atop the Observe setting.
     Derive count as number from button.
-    On click of button do increment count.
+    On click of button increment count.
     Share count to button as text content.
 '>
 </template>
@@ -66,7 +66,7 @@ Breaking down the (hidden) meaning further, the configuration above is shorthand
     ' 
     be-eventful='
     Target beScope:scope.
-    On click of button do increment count.
+    On click of button increment count.
     '
     be-sharing='
     Scrutinize beScope:scope.
