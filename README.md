@@ -1,6 +1,6 @@
 # be-hydrated
 
-*be-hydrated* is a DOM (custom) element decorator / behavior.   It assists with hydrating the element it adorns. 
+*be-hydrated* is a DOM (custom) element decorator / behavior.   It assists with hydrating nearby elements. 
 
 <!--[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/be-hydrated)-->
 <!--[![Playwright Tests](https://github.com/bahrus/be-hydrated/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-hydrated/actions/workflows/CI.yml)-->
