@@ -24,18 +24,18 @@
     "test": "playwright test"
   },
   "dependencies": {
-    "be-decorated": "0.0.235",
+    "be-decorated": "0.0.238",
     "be-derived": "0.0.3",
-    "be-eventful": "0.0.4",
+    "be-eventful": "0.0.5",
     "be-hive": "0.0.82",
     "be-sharing": "0.0.3",
-    "trans-render": "0.0.670"
+    "trans-render": "0.0.671"
   },
   "devDependencies": {
-    "be-scoped": "0.0.6",
+    "be-scoped": "0.0.8",
     "may-it-serve": "0.0.5",
     "@skypack/package-check": "0.2.2",
-    "@playwright/test": "1.31.2"
+    "@playwright/test": "1.32.1"
   },
   "repository": {
     "type": "git",
